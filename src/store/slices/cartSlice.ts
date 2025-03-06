@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice} from '@reduxjs/toolkit';
 import { Product } from '../../types';
 // Product type is already imported above
 interface CartItem extends Product {
   quantity: number;
 }
-import { CLEAR_CART } from '../actions/cartActions';
+
 
 interface CartState {
   items: CartItem[];

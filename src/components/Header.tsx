@@ -1,11 +1,11 @@
 // src/components/Header.tsx
-import React from 'react';
+
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/slices/authSlice';
 import { clearCart } from '../store/slices/cartSlice';
@@ -63,9 +63,7 @@ const Header = () => {
                 borderBottom: location.pathname === '/contact' ? '2px solid white' : 'none'
               }}
             >
-              <Link to="/contact">
-                <Button color="inherit">Contact Me</Button>
-              </Link>
+              Contact Me
             </Button>
             <Button 
               color="inherit" 

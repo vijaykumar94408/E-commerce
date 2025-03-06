@@ -201,6 +201,7 @@ const ChatBot: React.FC = () => {
             flexDirection: 'column',
             boxShadow: 3,
             borderRadius: 2,
+            zIndex: 1300,
           }}
         >
           <Box sx={{ 
@@ -234,23 +235,16 @@ const ChatBot: React.FC = () => {
                   mb: 2,
                 }}
               >
-                {message.sender === 'bot' && (
-                  <Avatar sx={{ width: 35, height: 35, mr: 1 }}>
-                    <MonkeyIcon />
-                  </Avatar>
-                )}
                 <Paper
                   sx={{
                     p: 1.5,
-                    maxWidth: '75%',
+                    maxWidth: '80%',
                     bgcolor: message.sender === 'user' ? 'primary.main' : 'white',
                     color: message.sender === 'user' ? 'white' : 'text.primary',
                     borderRadius: 2,
                   }}
                 >
-                  <Typography variant="body1" style={{ whiteSpace: 'pre-line' }}>
-                    {message.text}
-                  </Typography>
+                  <Typography sx={{ whiteSpace: 'pre-line' }}>{message.text}</Typography>
                 </Paper>
               </Box>
             ))}
@@ -261,24 +255,14 @@ const ChatBot: React.FC = () => {
               <TextField
                 fullWidth
                 size="small"
-                placeholder={isLoggedIn ? "Kick me a message! 🐵" : "Please login to chat..."}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                placeholder={isLoggedIn ? "Type your message..." : "Please login to chat"}
                 disabled={!isLoggedIn}
               />
-              <IconButton 
-                color="primary" 
-                onClick={handleSend}
-                disabled={!isLoggedIn}
-                sx={{ 
-                  bgcolor: 'primary.main', 
-                  color: 'white', 
-                  '&:hover': { bgcolor: 'primary.dark' },
-                  padding: '4px'
-                }}
-              >
-                <SendIcon fontSize="small" />
+              <IconButton color="primary" onClick={handleSend} disabled={!isLoggedIn}>
+                <SendIcon />
               </IconButton>
             </Box>
           </Box>
