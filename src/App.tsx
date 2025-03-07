@@ -26,6 +26,8 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<ContactMe />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="*" element={<Home/>} />
+
         </Routes>
       </Suspense>
       <ChatBot />

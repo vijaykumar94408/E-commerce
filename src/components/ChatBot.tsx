@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box, Paper, Typography, TextField, IconButton, Fab, Avatar } from '@mui/material';
-import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { useNavigate } from 'react-router-dom';
 import MonkeyIcon from '@mui/icons-material/EmojiNature'; // Using emoji nature as monkey alternative
 import { keyframes } from '@mui/system';
@@ -20,15 +18,18 @@ const ChatBot: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isOpen, messages, showPopup } = useSelector((state: RootState) => state.chatbot);
+  const user = useSelector((state: RootState) => state.auth.user);
   const [input, setInput] = useState('');
   const isLoggedIn = Boolean(localStorage.getItem('token'));
-  const userName = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!).username : '';
+
+  // Initialize chat when opened
   if (isOpen && messages.length === 0) {
     const initialMessage = isLoggedIn
-      ? `Hello ${userName}! I'm Vijay Kumar's AI assistant. How can I help you learn more about my portfolio and work?`
+      ? `Welcome ${user?.fullName || ''}! I'm Vijay Kumar's AI assistant. How can I help you learn more about my portfolio and work?`
       : "Please login to interact with me and explore Vijay's portfolio.";
     dispatch(addMessage({ text: initialMessage, sender: 'bot' }));
   }
+
   const handleSend = () => {
     if (!input.trim()) return;
 
@@ -51,8 +52,11 @@ const ChatBot: React.FC = () => {
       dispatch(addMessage({ text: response, sender: 'bot' }));
     }, 1000);
   };
-
   const getBotResponse = (input: string): string => {
+    // Remove login check and customize greeting
+    if (input.includes('hello') || input.includes('hi')) {
+      return `Hello ${user?.fullName || ''}! How can I help you today?`;
+    }
     if (!isLoggedIn) {
       return "Please login to interact with me and explore Vijay's portfolio.";
     }

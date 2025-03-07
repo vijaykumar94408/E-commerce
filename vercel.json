@@ -1,0 +1,10 @@
+{
+  "framework": "vite",
+  "outputDirectory": "dist",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
+  ]
+}
